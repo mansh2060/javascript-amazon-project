@@ -2,6 +2,7 @@ import {cart, removeFromCart,updateDeliveryOption} from '../../data/cart.js';
 import { getProductId} from '../../data/products.js';
 import { formatCurrency} from '../utils/money.js';
 import {deliveryOpptions, getDeliveryOption} from '../../data/deliveryOptions.js'
+import { renderPaymentSummary } from './paymentSummary.js';
 
 //const todayDate = dayjs();
 //const deliveryDate = todayDate.add(7,'days') 
@@ -124,6 +125,8 @@ export function renderOrderSummary() {
 
       container.remove(); 
 
+      renderPaymentSummary();
+
 
     });
   }); 
@@ -134,6 +137,7 @@ export function renderOrderSummary() {
       const {productId,deliveryOptionId} = element.dataset;  
       updateDeliveryOption(productId,deliveryOptionId);
       renderOrderSummary();
+      renderPaymentSummary();
     })
   });
 }
