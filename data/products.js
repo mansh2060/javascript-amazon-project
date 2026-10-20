@@ -1,13 +1,16 @@
 import { formatCurrency } from "../scripts/utils/money.js";
 
+
 export function getProductId(productId){
   let matchingProduct;
+  console.log(products);
 
   products.forEach((product) => {
     if (product.id === productId){
       matchingProduct = product;
     }
   });
+  console.log(matchingProduct);
   return matchingProduct;
 }
 
@@ -27,6 +30,7 @@ class Product{
     this.rating = productDetails.rating;
     this.priceCents = productDetails.priceCents;
   }
+
 
   getStarsUrl() {
     return `images/ratings/rating-${this.rating.stars * 10}.png`
@@ -57,10 +61,30 @@ class Clothing extends Product{
 
 }
 
-//const tshirt = new Clothing();
+export let products = []; 
 
+export function loadProducts(fun) {
+  const xhr = new XMLHttpRequest();
 
+  xhr.addEventListener('load',() => {
+    products = JSON.parse(xhr.response).map((productDetails) => {
+    if (productDetails.type === 'clothing'){
+      console.log()
+      return new Clothing(productDetails); 
+    }
+    return new Product(productDetails);
+}); 
+  
+  console.log(products);
 
+  fun();
+  })
+  xhr.open('GET','https://supersimplebackend.dev/products');
+  xhr.send(); 
+
+}
+
+/*
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -726,3 +750,5 @@ export const products = [
   }
   return new Product(productDetails);
 });
+
+*/

@@ -13,12 +13,14 @@ import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
 
 export function renderOrderSummary() {
   let cartSummaryHTML = '';
+  console.log(cart);
   cart.forEach((cartItem) => {
     const productId = cartItem.productId;
+    console.log(productId);
 
     let matchingProduct = getProductId(productId);
     
-    
+    console.log(matchingProduct);
     const deliveryOptionId = cartItem.deliveryOpptionId;
     //console.log(deliveryOptionId); 
 
