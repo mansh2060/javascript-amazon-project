@@ -57,7 +57,7 @@ class Clothing extends Product{
 
 }
 
-const tshirt = new Clothing();
+//const tshirt = new Clothing();
 
 
 
