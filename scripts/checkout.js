@@ -7,8 +7,27 @@ import { loadProducts, loadProductsFetch } from "../data/products.js";
 import { loadCart } from "../data/cart.js";
 
 
-// promises -> for asynchronous code
+async function loadPage() {
+  console.log('load page');
 
+  await loadProductsFetch();
+
+  await new Promise((resolve)  => {
+    loadCart(() => {
+      resolve();
+  });
+  });
+
+  renderOrderSummary();
+  renderPaymentSummary();
+
+}
+
+loadPage();
+
+
+// promises -> for asynchronous code
+/*
 Promise.all([
   loadProductsFetch(),
   new Promise((resolve)  => {
@@ -40,7 +59,7 @@ new Promise((resolve) => {
   renderOrderSummary();
   renderPaymentSummary();
 });
-
+*/
 
 // callbacks
 /*
