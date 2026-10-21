@@ -10,17 +10,19 @@ import { loadCart } from "../data/cart.js";
 async function loadPage() {
   console.log('load page');
 
-  await loadProductsFetch();
+  try{
+    await loadProductsFetch();
 
-  await new Promise((resolve)  => {
-    loadCart(() => {
-      resolve();
-  });
-  });
-
+    const value = await new Promise((resolve)  => {
+      loadCart(() => {
+        resolve();
+      });
+    });
+  } catch (error) {
+    console.log('Unexpected error occured');
+  }
   renderOrderSummary();
   renderPaymentSummary();
-
 }
 
 loadPage();
